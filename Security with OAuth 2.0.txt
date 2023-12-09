@@ -1,0 +1,74 @@
+Security with OAuth 2.0:
+	Open Authorization
+	Token based authentication
+		Access token
+		Refresh token
+	Token contains the access information
+Roles:
+1. Resource Owner(file)
+	granting access to a protected resource
+2. Resource Server(file is hosted)
+	The server hosting the protected resource
+3. Client/Customer(request the access for the file on behalf of Resource Owner) 
+	Making protected resource request
+4. Authorization Server
+	Generates the tokens
+	Interacts with Resource Server in order to verify the authorization of token
+	a)Validating client and res owner, gen. access token
+	b)client is using access token, sending the request 
+
+Access token:
+	credentials used to access protected resource
+	These tokens have shorter life span
+Refresh token:
+	Credentials used to obtain access token when it is invalid / expired
+	Longer life span than the access token
+
+Abstract Flow:
+	1. Client Registration
+		Client is requesting Auth. Server to provide client credentials
+	2. Request for Authorization and providing the grant type
+		Client is req Resource owner and gets the grant type
+To simply demo, the first 2 steps are hardcoded
+	3. Client is sending grant type and client cred. to Auth. Server
+Auth. Server validating the client and grant type, it generates and provides access token and refresh token
+	4. Client is sending the request along with access token to Resource Server. Resource server is interacting with Auth. Server in order to verify the access token, If it is valid client can access the protected resource
+
+Authorization Grant:
+	Credential representing the resource owner's authorization used by client to obtain access token
+
+Execute the project
+1. From Postman http://localhost:8095/emp/controller/getDetails   GET
+	Observe the error
+2. http://localhost:8095/oauth/token?grant_type=password&username=priya&password=priya123    POST
+	Authorization Tab
+		my-trusted-client
+		secret
+Observe access token and refresh token are generated
+3.
+Try again with this url(GET) http://localhost:8095/emp/controller/getDetails?access_token=<<generated access token>>     
+4.
+After 2 mins try to access the same, observe that access token is expired
+5.
+http://localhost:8095/oauth/token?grant_type=refresh_token&refresh_token=c91a13aa-48eb-465a-a176-39aa529e4fb1
+
+observe that new access token is generated with same refresh token
+6.
+Repeat step 3 with new access token
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
